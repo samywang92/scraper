@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Scrapendo</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-wrapper red darken-1"">
+            <a href=" #" class="brand-logo center">Scrapendo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./saved.html">Saved Articles</a></li>
+                <li><a href="/scrape">Grab news</a></li>
+                <li><a href="">Clear Articles</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="parallax-container">
+        <div class="parallax"><img src="./img/bg.jpg"></div>
+        <div class="valign center banner-text white-text shadow">
+            <h1>Scrapendo</h1>
+            <p>Why get your news from the official site, when you can get it here?!</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="articles main-container">
+        <!-- Dummy Data -->
+        <div class="row">
+            <div class="card">
+                <img class="side-img responsive-img" src="./img/dummy.jpg" alt="Dummy Photo" align="left">
+                <h5 class="white-text red darken-1">Experience family-friendly VR with hippos, aliens, photography and
+                    more in new Nintendo Labo: VR Kit</h5>
+                <p class="grey-text text-darken-2">Date published: 03.22.19</p>
+                <p class="grey-text text-darken-2">Ever wish you could paint like an elephant or feel like a superhero
+                    by stopping an alien invasion? N... <a href="#" target="_blank">Read more</a></p>
+                <div class="btn-holder valign right">
+                    <a class="waves-effect waves-light btn-small red"><i
+                            class="material-icons left">add_circle_outline</i>Save Article</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <img class="side-img responsive-img" src="./img/dummy.jpg" alt="Dummy Photo" align="left">
+                <h5 class="white-text red darken-1">Experience family-friendly VR with hippos, aliens, photography and
+                    more in new Nintendo Labo: VR Kit</h5>
+                <p class="grey-text text-darken-2">Date published: 03.22.19</p>
+                <p class="grey-text text-darken-2">Ever wish you could paint like an elephant or feel like a superhero
+                    by stopping an alien invasion? N... <a href="#" target="_blank">Read more</a></p>
+                <div class="btn-holder valign right">
+                    <a class="waves-effect waves-light btn-small red"><i
+                            class="material-icons left">add_circle_outline</i>Save Article</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <img class="side-img responsive-img" src="./img/dummy.jpg" alt="Dummy Photo" align="left">
+                <h5 class="white-text red darken-1">Experience family-friendly VR with hippos, aliens, photography and
+                    more in new Nintendo Labo: VR Kit</h5>
+                <p class="grey-text text-darken-2">Date published: 03.22.19</p>
+                <p class="grey-text text-darken-2">Ever wish you could paint like an elephant or feel like a superhero
+                    by stopping an alien invasion? N... <a href="#" target="_blank">Read more</a></p>
+                <div class="btn-holder valign right">
+                    <a class="waves-effect waves-light btn-small red"><i
+                            class="material-icons left">add_circle_outline</i>Save Article</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer red darken-1 white-text valign center">
+        You have reached the bottom of the page!!
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./logic.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
+    </script>
+</body>
+
+</html>

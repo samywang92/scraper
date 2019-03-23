@@ -1,0 +1,24 @@
+
+.card{
+    min-height: 175px;
+}
+
+.main-container{
+    margin: 0 auto;
+    width: 95%;
+}
+
+.banner-text{
+    margin: 10%;
+}
+
+.shadow{
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.footer{
+    padding: 20px;
+    bottom: 0;
+    width: 100%;
+    margin: 0 auto;
+}
