@@ -41,39 +41,28 @@ app.get("/", function (req, res) {
 
 app.get("/scrape", (req, res) => {
 
-    axios.get("https://www.nintendo.com/whatsnew#all").then(response => {
+    axios.get("https://www.nintendo.com/whatsnew").then(response => {
         const $ = cheerio.load(response.data);
         console.log("we have infiltrated nintendo");
         // console.log($);
-
-        //<ul xmlns:i18n="http://apache.org/cocoon/i18n/2.1" class="news-tiles">...</ul> 
-        // $(".news-tiles").find('li').each((i, element) => {
-        $(".news-tiles li").each((i, element) => {
-            /////*Chris and I discovered that "this" is returning an empty object*//////
-            console.log("This is: "+JSON.stringify(this)); 
-            // var test = $(this).children("li");
-            //console.log("we here "+test.children("a").attr("href"));
-            // console.log(element);
-            // console.log(i)
-            // console.log("we here"+$(this).html());
-            // console.log('****************************************')
-            // console.log(element.children("a").attr("href"));
+        $(".news-tiles li").each(function(i, element) {
             const result = {};
             console.log("stealing info");
             result.link = $(this).children("a").attr("href");
             result.title = $(this).children("a").children("h2").text();
-            result.date = $(this).children("a").children("date").text();
-            result.text = $(this).children("a").children("hide-tablet").text();
-            result.img = $(this).children("a").children("banner").children("img").attr("data-src");
-            result.imgAlt = $(this).children("a").children("banner").children("img").attr("alt");
+            result.date = $(this).children("a").children("div.date").text();
+            result.text = $(this).children("a").children("p").text();
+            result.img = $(this).children("a").children("div.banner").children("img").attr("data-src");
+            result.imgAlt = $(this).children("a").children("div.banner").children("img").attr("alt");
             result.saved = false;
             console.log(result);
 
-            // db.Article.create(result).then((dbArticle) => {
-            //     console.log("pushing to our db");
-            //     console.log(dbArticle);
-            // }).catch(err => console.log(err));
+            db.Article.create(result).then((dbArticle) => {
+                console.log("pushing to our db");
+                console.log(dbArticle);
+            }).catch(err => console.log(err));
         });
+        
     });
 
     res.send("Scrape Complete");
@@ -83,7 +72,7 @@ app.get("/scrape", (req, res) => {
 app.get("/articles", (req, res) => {
     db.Article.find({}).then((dbUser) => {
         res.json(dbUser);
-      }).catch((err) => res.json(err));
+    }).catch((err) => res.json(err));
 });
 
 // Start the server
