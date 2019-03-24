@@ -27,17 +27,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // // Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI);
 
-
 // Routes
 
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "./public/index.html"));
-});
+// app.get("/", function (req, res) {
+//     res.sendFile(path.join(__dirname + "./public/index.html"));
+// });
 
 app.get("/scrape", (req, res) => {
 
