@@ -11,7 +11,7 @@ const cheerio = require("cheerio");
 // Require all models
 const db = require("./models");
 
-const PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 const app = express();
@@ -32,10 +32,9 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
 mongoose.connect(MONGODB_URI);
 
 // Routes
-
-// app.get("/", function (req, res) {
-//     res.sendFile(path.join(__dirname + "./public/index.html"));
-// });
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname + "./public/index.html"));
+});
 
 app.get("/scrape", (req, res) => {
 
