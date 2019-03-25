@@ -72,7 +72,7 @@ $(document).ready(function () {
 
         //console.log(id);
         $.ajax({
-            method: "GET",
+            method: "PUT",
             url: "/api/articles/" + id
         }).then(data => data[0].saved ? $(self).children("i").text("add_circle_outline"):$(self).children("i").text("check_circle")
         ).catch(err => console.log(err));

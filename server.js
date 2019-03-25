@@ -88,8 +88,18 @@ app.get("/api/saved", (req, res) => {
     }).catch((err) => res.json(err));
 });
 
-//Updated specific articles saved state
+//Gets all artciles by id from the database
 app.get("/api/articles/:id", (req, res) => {
+    db.Article.find({
+        _id: req.params.id
+    }).populate("note")
+    .then((dbUser) => {
+        res.json(dbUser);
+    }).catch((err) => res.json(err));
+});
+
+//Updated specific articles saved state
+app.put("/api/articles/:id", (req, res) => {
     const id = req.params.id;
     let bool;
 
@@ -113,6 +123,23 @@ app.get("/api/articles/:id", (req, res) => {
         }).catch((err) => res.json(err));
     }).catch((err) => res.json(err));
 });
+
+//Note creation
+app.post("/api/articles/:id", function(req, res) {
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+      })
+      .then(function(dbArticle) {
+        // If we were able to successfully update an Article, send it back to the client
+        res.json(dbArticle);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+  });
+  
 
 //Delete all articles from the database
 app.delete("/api/articles", (req, res) => {
