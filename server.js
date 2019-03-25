@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+var path = require("path");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
@@ -31,10 +32,16 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlin
 
 mongoose.connect(MONGODB_URI);
 
-// Routes
+// HTML Routes
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "./public/index.html"));
+    res.sendFile(path.join(__dirname + "/public/index.html"));
 });
+
+app.get("/saved", function (req, res) {
+    res.sendFile(path.join(__dirname + "/public/saved.html"));
+});
+
+// API Routes
 
 app.get("/scrape", (req, res) => {
 
@@ -42,7 +49,7 @@ app.get("/scrape", (req, res) => {
         const $ = cheerio.load(response.data);
         console.log("we have infiltrated nintendo");
         // console.log($);
-        $(".news-tiles li").each(function(i, element) {
+        $(".news-tiles li").each(function (i, element) {
             const result = {};
             console.log("stealing info");
             result.link = $(this).children("a").attr("href");
@@ -59,15 +66,57 @@ app.get("/scrape", (req, res) => {
                 console.log(dbArticle);
             }).catch(err => console.log(err));
         });
-        
+
     });
 
     res.send("Scrape Complete");
 });
 
 //Gets all artciles from the database
-app.get("/articles", (req, res) => {
+app.get("/api/articles", (req, res) => {
     db.Article.find({}).then((dbUser) => {
+        res.json(dbUser);
+    }).catch((err) => res.json(err));
+});
+
+//Gets all saved artciles from the database
+app.get("/api/saved", (req, res) => {
+    db.Article.find({
+        saved: true
+    }).then((dbUser) => {
+        res.json(dbUser);
+    }).catch((err) => res.json(err));
+});
+
+//Updated specific articles saved state
+app.get("/api/articles/:id", (req, res) => {
+    const id = req.params.id;
+    let bool;
+
+    db.Article.find(
+        { "_id": id }
+    ).then((dbUser) => {
+        //res.json(dbUser);
+        console.log(dbUser[0].saved);
+        bool = !dbUser[0].saved;
+        console.log(bool);
+        res.json(dbUser);
+        db.Article.update(
+            { "_id": id },
+            {
+                $set: {
+                    saved: bool
+                }
+            }
+        ).then((dbUser) => {
+            console.log("Saved updated");
+        }).catch((err) => res.json(err));
+    }).catch((err) => res.json(err));
+});
+
+//Delete all articles from the database
+app.delete("/api/articles", (req, res) => {
+    db.Article.remove().then((dbUser) => {
         res.json(dbUser);
     }).catch((err) => res.json(err));
 });

@@ -3,6 +3,11 @@
     min-height: 175px;
 }
 
+.side-img{
+    height: 174px;
+    width: 308px;
+}
+
 .main-container{
     margin: 0 auto;
     width: 95%;
