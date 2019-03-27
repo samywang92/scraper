@@ -46,7 +46,8 @@ $(document).ready(function () {
         $.ajax({
             method: "PUT",
             url: "/api/articles/" + id
-        }).then(data => data[0].saved ? $(self).children("i").text("add_circle_outline") : $(self).children("i").text("check_circle")).catch(err => console.log(err));
+        }).then(data => $(`#${id}`).remove()).catch(err => console.log(err));
+        // data[0].saved ? $(self).children("i").text("add_circle_outline") : $(self).children("i").text("check_circle")
         //not working call back maybe ask sammy?
         // {
         //     $(`.articles`).empty();
@@ -120,7 +121,7 @@ $(document).ready(function () {
                 const wasSaved = article.saved ? "check_circle" : "add_circle_outline";
                 const html = `
             <div class="row">
-                <div class="card">
+                <div class="card" id="${article._id}">
                     <img class="side-img responsive-img" src="${article.img}" alt="${article.imgAlt}" align="left">
                     <h5 class="white-text red darken-1">${article.title}</h5>
                     <p class="grey-text text-darken-2">Date published: ${article.date}</p>
